@@ -29,11 +29,52 @@ res.json({
 
 /* Write a request handler to return the correct response when a `GET` request is received to `/astronauts`. Choose the appropriate 
 function from the imported functions at the top of the `app.js` to get your data. */
+//i am using async await to get the data from the function getAstronauts.
+
+app.get(`/astronauts`, async (req, res) => {
+  try {
+    const astronauts = await getAstronauts();
+    res.json({
+      success: true,
+      payload: astronauts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      success: false,
+      payload: "An error occurred",
+    });
+  }
+});
+
 
 // Task 2
 
 /* Write a request handler to return the correct response and perform the correct action when a `POST` request is received to 
 `/astronauts`. Choose the appropriate function from the imported functions at the top of the `app.js` to perform the action. */
+//i will use the createAstronaut function to create a new astronaut.
+// this involves sending in data from the request body and pushing (appending) it to the astronauts array.
+//define variable astronauts to hold the data from the request body.
+//use await createAstronaut function with astronauts as the argument.
+//write error handling responses as in previous task.
+
+app.post("/astronauts", async(req, res) => {
+  try{
+    const astronaut = await createAstronaut(req.body);
+    res.json({
+      success: true,
+      payload: astronaut,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      success: false,
+      payload: "An error occurred",
+    });
+  }
+});
+
+
 
 // Task 3
 
